@@ -317,6 +317,35 @@ db.inscripciones.aggregate([
     {
       $lookup: {
         from: "cursos",
-        local
+        localField: "_id",
+        foreignField: "_id",
+        as: "curso"
+            }
+          },
+          { $unwind: "$curso" },
+          // Filtrar cursos que están a punto de alcanzar el cupo máximo (por ejemplo, 90% o más del cupo)
+          {
+            $addFields: {
+        porcentaje_ocupado: {
+          $divide: ["$total_inscritos", "$curso.cupo_maximo"]
+        }
+            }
+          },
+          {
+            $match: {
+        porcentaje_ocupado: { $gte: 0.9 }
+            }
+          },
+          {
+            $project: {
+        curso: "$curso.nombre",
+        total_inscritos: 1,
+        cupo_maximo: "$curso.cupo_maximo",
+        porcentaje_ocupado: 1
+            }
+          },
+          { $sort: { porcentaje_ocupado: -1 } }
+      ])
   
 
+  
