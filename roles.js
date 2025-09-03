@@ -1,7 +1,5 @@
 /// CREAR ROLES PERSONALIZADOS
 
-use campusMusic
-
 db.createRole({
   role: "adminCampus",
   privileges: [

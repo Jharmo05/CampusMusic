@@ -1,5 +1,4 @@
-// Conectar a la base de datos campusMusic
-use campusMusic
+
 
 // Iniciar una sesión para la transacción
 const session = db.getMongo().startSession();
