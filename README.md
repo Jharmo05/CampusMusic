@@ -41,7 +41,7 @@ El proyecto utiliza **MongoDB** e implementa configuraciones de seguridad, roles
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/Jharmo05/Photo-Campus.git
-   cd Photo-Campus
+   cd CampusMusic
    ```
 
 2. Iniciar MongoDB y acceder a la shell:
