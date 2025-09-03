@@ -98,5 +98,5 @@ El proyecto utiliza **MongoDB** e implementa configuraciones de seguridad, roles
 ## 👨‍💻 Autor
 
 Proyecto desarrollado como práctica de **MongoDB**. 
-Realizado por: Jhon Sebastian Ardila Moreno 
-Repositorio: [Campus-Music](https://github.com/Jharmo05/Campus_music)  
+Realizado por: Jhon Sebastian Ardila Moreno.
+Repositorio: [Campus-Music](https://github.com/Jharmo05/Campus_music). 
