@@ -195,7 +195,7 @@ db.reservas_instrumentos.aggregate([
 
 /// MOSTRAR TODOS LOS CURSOS EN LOS QUE UN ESTUDIANTE ESTÁ INSCRITO, INCLUYENDO DETALLES DEL CURSO, PROFESOR Y SEDE 🎓
 
-const estudianteId = ObjectId("...") // ⚠️ ¡REEMPLAZA ESTO CON UN ID REAL!
+const estudianteId = ObjectId("653282b545d9e51c11060938"); // ⚠️ ¡REEMPLAZA ESTO CON UN ID REAL!
 
 db.inscripciones.aggregate([
   // 🔍 Paso 1: Filtrar solo las inscripciones de un estudiante específico
