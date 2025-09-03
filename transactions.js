@@ -14,16 +14,20 @@ try {
   const cursoId = ObjectId("REEMPLAZAR_CON_ID_CURSO"); // 📚 ID del curso deseado
 
   // ============================================
-  // ✅ PASO 1: Verificar que el curso tenga cupo
+  // ✅ PASO 1: Verificar que el curso exista y tenga cupo
   // ============================================
-  const curso = db.cursos.findOne({ _id: cursoId }, { session }); // 🔍 Buscamos el curso dentro de la transacción
+  const curso = db.cursos.findOne({ _id: cursoId }, { session }); // 🔍 Buscamos el curso
 
   if (!curso) {
     throw new Error("Curso no encontrado."); // ❌ Si el curso no existe, lanzamos un error
   }
 
-  if (!curso.cupo_disponible || curso.cupo_disponible <= 0) {
-    throw new Error("No hay cupos disponibles."); // ❌ Si no hay espacio, ¡error!
+  // Contamos las inscripciones existentes para este curso dentro de la transacción
+  const inscritos = db.inscripciones.countDocuments({ curso_id: cursoId }, { session });
+
+  // Comparamos el número de inscritos con el cupo máximo
+  if (inscritos >= curso.cupo_maximo) {
+    throw new Error("No hay cupos disponibles. El curso ha alcanzado su cupo máximo."); // ❌ Si no hay espacio, ¡error!
   }
 
   // ============================================
@@ -34,16 +38,7 @@ try {
     curso_id: cursoId,
     fecha_inscripcion: new Date(),
     estado: "activa"
-  }, { session }); // 📝 Insertamos la inscripción, pero solo temporalmente en la sesión
-
-  // ============================================
-  // ✅ PASO 3: Decrementar cupo del curso
-  // ============================================
-  db.cursos.updateOne(
-    { _id: cursoId },
-    { $inc: { cupo_disponible: -1 } }, // ⬇️ Restamos 1 al cupo disponible
-    { session } // 🔄 Esta actualización también es parte de la transacción
-  );
+  }, { session }); // 📝 Insertamos la inscripción
 
   // ============================================
   // 🟢 COMMIT: Confirmar la transacción
