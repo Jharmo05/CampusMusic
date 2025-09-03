@@ -40,7 +40,7 @@ El proyecto utiliza **MongoDB** e implementa configuraciones de seguridad, roles
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/Jharmo05/Photo-Campus.git
+   git clone https://github.com/Jharmo05/CampusMusic.git
    cd CampusMusic
    ```
 
