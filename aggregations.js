@@ -209,4 +209,11 @@ print("\n🎓 6. CURSOS DE UN ESTUDIANTE ESPECÍFICO");
         _id: 0,
         fecha_inscripcion: 1,
         curso: "$curso.nombre",
-        profesor: { $concat: ["
+        profesor: { $concat: ["$profesor.nombre", " ", "$profesor.apellido"] }, // Fixed this line
+        sede: "$sede.nombre",
+        costo: "$curso.costo",
+        nivel: "$curso.nivel"
+      }
+    }
+  ]).forEach(doc => printjson(doc))
+})(); // 🏁 Fin de la función anónima y ejecución
