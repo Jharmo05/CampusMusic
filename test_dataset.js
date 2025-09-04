@@ -112,11 +112,11 @@ db.cursos.insertMany([
   { // 🎻 Violín Básico en Norte
     nombre: "Violín Básico",
     descripcion: "Curso para principiantes de violín.",
-    profesor_id: profesorAna._id, // 🔗 Ref profesor
-    sede_id: sedeNorte._id, // 🔗 Ref sede
+    profesor_id: profesorAna._id,
+    sede_id: sedeNorte._id,
     cupo_maximo: 10,
     costo: 500,
-    fecha_inicio: new Date("2025-08-01"), // 📅 Curso activo ahora
+    fecha_inicio: new Date("2025-08-01"), // 📅 Activo ahora
     fecha_fin: new Date("2025-12-31"),
     nivel: "básico"
   },
@@ -127,7 +127,7 @@ db.cursos.insertMany([
     sede_id: sedeCentro._id,
     cupo_maximo: 8,
     costo: 700,
-    fecha_inicio: new Date("2025-07-01"), // 📅 Curso activo ahora
+    fecha_inicio: new Date("2025-07-01"), // 📅 Activo ahora
     fecha_fin: new Date("2025-12-31"),
     nivel: "intermedio"
   }
