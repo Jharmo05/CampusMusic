@@ -1,149 +1,250 @@
+use campusMusic // 🎶 ¡Activamos la base de datos musical!
+
+// 🧹 Limpiamos datos existentes para empezar fresco
+db.usuarios.deleteMany({}) // 🗑️ Limpiar usuarios
+db.profesores.deleteMany({}) // 🗑️ Limpiar profesores
+db.estudiantes.deleteMany({}) // 🗑️ Limpiar estudiantes
+db.sedes.deleteMany({}) // 🗑️ Limpiar sedes
+db.cursos.deleteMany({}) // 🗑️ Limpiar cursos
+db.inscripciones.deleteMany({}) // 🗑️ Limpiar inscripciones
+db.instrumentos.deleteMany({}) // 🗑️ Limpiar instrumentos
+db.reservas_instrumentos.deleteMany({}) // 🗑️ Limpiar reservas
+
 /// DATOS USUARIOS 🕺💃
-db.usuarios.insertMany([
-  {
-    nombre: "Carlos",
-    apellido: "Gómez",
-    email: "carlos.gomez@campus.edu",
-    rol: "administrador", // 👑 Es el rey de la base de datos
-    cedula: "1234567890",
-    telefono: "0991234567",
-    fecha_registro: new Date("2022-01-15")
+db.usuarios.insertMany([ // 📥 Insertamos usuarios de ejemplo
+  { 
+    nombre: "Carlos", // 🏷️ Nombre
+    apellido: "Gómez", // 🏷️ Apellido
+    email: "carlos.gomez@campus.edu", // 📧 Email
+    rol: "administrador", // 👑 Rol administrativo
+    cedula: "1234567890", // 🆔 Cédula
+    telefono: "0991234567", // 📞 Teléfono
+    fecha_registro: new Date("2024-01-15") // 📅 Fecha reciente
   },
-  {
-    nombre: "Lucía",
-    apellido: "Martínez",
-    email: "lucia.martinez@campus.edu",
-    rol: "empleado", // 👩‍💼 Gestiona inscripciones y reservas
-    cedula: "1234567891",
-    telefono: "0987654321",
-    fecha_registro: new Date("2023-03-10")
+  { 
+    nombre: "Lucía", // 🏷️ Nombre
+    apellido: "Martínez", // 🏷️ Apellido
+    email: "lucia.martinez@campus.edu", // 📧 Email
+    rol: "empleado", // 👨‍💼 Rol empleado
+    cedula: "1234567891", // 🆔 Cédula
+    telefono: "0987654321", // 📞 Teléfono
+    fecha_registro: new Date("2024-03-10") // 📅 Fecha reciente
   },
-  {
-    nombre: "Miguel",
-    apellido: "Rojas",
-    email: "miguel.rojas@campus.edu",
-    rol: "estudiante", // 🎓 Va a aprender música
-    cedula: "1234567892",
-    telefono: "0912345678",
-    fecha_registro: new Date("2024-02-01")
+  { 
+    nombre: "Miguel", // 🏷️ Nombre
+    apellido: "Rojas", // 🏷️ Apellido
+    email: "miguel.rojas@campus.edu", // 📧 Email
+    rol: "estudiante", // 🎓 Rol estudiante
+    cedula: "1234567892", // 🆔 Cédula
+    telefono: "0912345678", // 📞 Teléfono
+    fecha_registro: new Date("2024-02-01") // 📅 Fecha reciente
   }
 ])
 
-/// PROFESORES 👨‍🏫
-db.profesores.insertMany([
+/// PROFESORES 👨‍🏫🎻
+db.profesores.insertMany([ // 📥 Insertamos profesores
   {
-    nombre: "Ana",
-    apellido: "Pérez",
-    cedula: "9876543210",
-    especialidad: "Violín", // 🎻 ¡Una maestra del violín!
-    telefono: "0922334455",
-    email: "ana.perez@campus.edu",
-    fecha_ingreso: new Date("2021-05-20")
+    nombre: "Ana", // 🏷️ Nombre
+    apellido: "Pérez", // 🏷️ Apellido
+    cedula: "9876543210", // 🆔 Cédula
+    especialidad: "Violín", // 🎻 Especialidad
+    telefono: "0922334455", // 📞 Teléfono
+    email: "ana.perez@campus.edu", // 📧 Email
+    fecha_ingreso: new Date("2024-05-20") // 📅 Fecha reciente
   },
   {
-    nombre: "Jorge",
-    apellido: "Ramírez",
-    cedula: "9876543211",
-    especialidad: "Batería", // 🥁 El maestro del ritmo
-    telefono: "0967788990",
-    email: "jorge.ramirez@campus.edu",
-    fecha_ingreso: new Date("2020-08-10")
+    nombre: "Jorge", // 🏷️ Nombre
+    apellido: "Ramírez", // 🏷️ Apellido
+    cedula: "9876543211", // 🆔 Cédula
+    especialidad: "Batería", // 🥁 Especialidad
+    telefono: "0967788990", // 📞 Teléfono
+    email: "jorge.ramirez@campus.edu", // 📧 Email
+    fecha_ingreso: new Date("2024-08-10") // 📅 Fecha reciente
   }
 ])
 
-/// ESTUDIANTES ✍️
-db.estudiantes.insertMany([
+/// ESTUDIANTES ✍️🎸
+db.estudiantes.insertMany([ // 📥 Insertamos estudiantes
   {
-    nombre: "Daniela",
-    apellido: "Suárez",
-    cedula: "1122334455",
-    email: "daniela.suarez@correo.com",
-    telefono: "0955443322",
-    direccion: "Av. Siempre Viva 123", // 🏠 ¡Un guiño a Los Simpsons!
-    fecha_nacimiento: new Date("2005-07-15")
+    nombre: "Daniela", // 🏷️ Nombre
+    apellido: "Suárez", // 🏷️ Apellido
+    cedula: "1122334455", // 🆔 Cédula
+    email: "daniela.suarez@correo.com", // 📧 Email
+    telefono: "0955443322", // 📞 Teléfono
+    direccion: "Av. Siempre Viva 123", // 🏠 Dirección
+    fecha_nacimiento: new Date("2005-07-15") // 🎂 Fecha nacimiento
   },
   {
-    nombre: "Andrés",
-    apellido: "Torres",
-    cedula: "1122334466",
-    email: "andres.torres@correo.com",
-    telefono: "0944332211",
-    direccion: "Calle Luna 456", // 🌙 Como la famosa canción...
-    fecha_nacimiento: new Date("2004-11-03")
+    nombre: "Andrés", // 🏷️ Nombre
+    apellido: "Torres", // 🏷️ Apellido
+    cedula: "1122334466", // 🆔 Cédula
+    email: "andres.torres@correo.com", // 📧 Email
+    telefono: "0944332211", // 📞 Teléfono
+    direccion: "Calle Luna 456", // 🏠 Dirección
+    fecha_nacimiento: new Date("2004-11-03") // 🎂 Fecha nacimiento
+  },
+  {
+    nombre: "María", // 🏷️ Nombre
+    apellido: "Gonzalez", // 🏷️ Apellido
+    cedula: "1122334477", // 🆔 Cédula
+    email: "maria.gonzalez@correo.com", // 📧 Email
+    telefono: "0933445566", // 📞 Teléfono
+    direccion: "Av. Central 789", // 🏠 Dirección
+    fecha_nacimiento: new Date("2003-05-20") // 🎂 Fecha nacimiento
   }
 ])
 
-/// SEDES 🏢
-db.sedes.insertMany([
+/// SEDES 🏢🎹
+db.sedes.insertMany([ // 📥 Insertamos sedes
   {
-    nombre: "Campus Norte",
-    direccion: "Av. Principal Norte 100",
-    zona: "norte",
-    telefono: "022334455"
+    nombre: "Campus Norte", // 🏷️ Nombre sede
+    direccion: "Av. Principal Norte 100", // 📍 Dirección
+    zona: "norte", // 🗺️ Zona
+    telefono: "022334455" // 📞 Teléfono
   },
   {
-    nombre: "Campus Centro",
-    direccion: "Calle Central 200",
-    zona: "centro",
-    telefono: "022334466"
+    nombre: "Campus Centro", // 🏷️ Nombre sede
+    direccion: "Calle Central 200", // 📍 Dirección
+    zona: "centro", // 🗺️ Zona
+    telefono: "022334466" // 📞 Teléfono
+  },
+  {
+    nombre: "Campus Sur", // 🏷️ Nombre sede
+    direccion: "Av. Sur 300", // 📍 Dirección
+    zona: "sur", // 🗺️ Zona
+    telefono: "022334477" // 📞 Teléfono
   }
 ])
 
-/// CURSOS 📚
-const profesor = db.profesores.findOne({ cedula: "9876543210" }); // 🔍 Buscamos a la profesora Ana para asignarla
-const sede = db.sedes.findOne({ nombre: "Campus Norte" }); // 🔍 Encontramos la sede Norte
+/// CURSOS 📚🎷
+const profesorAna = db.profesores.findOne({ cedula: "9876543210" }) // 🔍 Buscamos profesora Ana
+const profesorJorge = db.profesores.findOne({ cedula: "9876543211" }) // 🔍 Buscamos profesor Jorge
+const sedeNorte = db.sedes.findOne({ nombre: "Campus Norte" }) // 🔍 Sede Norte
+const sedeCentro = db.sedes.findOne({ nombre: "Campus Centro" }) // 🔍 Sede Centro
+const sedeSur = db.sedes.findOne({ nombre: "Campus Sur" }) // 🔍 Sede Sur
 
-db.cursos.insertMany([
-{
-  nombre: "Violín Básico",
-  descripcion: "Curso para principiantes de violín.", // 🎻 ¡Ideal para empezar a tocar!
-  profesor_id: profesor._id, // 🔗 Usamos el ID de Ana Pérez
-  sede_id: sede._id, // 🔗 Lo ubicamos en el Campus Norte
-  cupo_maximo: 10
-}
+db.cursos.insertMany([ // 📥 Insertamos cursos
+  { 
+    nombre: "Violín Básico", // 🏷️ Nombre curso
+    descripcion: "Curso para principiantes de violín.", // 📝 Descripción
+    profesor_id: profesorAna._id, // 👩‍🏫 Referencia profesor
+    sede_id: sedeNorte._id, // 🏢 Referencia sede
+    cupo_maximo: 10, // 🔢 Capacidad
+    costo: 500, // 💰 Precio
+    fecha_inicio: new Date("2024-09-01"), // 🗓️ Inicio reciente
+    fecha_fin: new Date("2024-12-15"), // 🗓️ Fin reciente
+    nivel: "básico" // 📊 Nivel
+  },
+  { 
+    nombre: "Batería Intermedio", // 🏷️ Nombre curso
+    descripcion: "Ritmos y técnicas intermedias de batería.", // 📝 Descripción
+    profesor_id: profesorJorge._id, // 👨‍🏫 Referencia profesor
+    sede_id: sedeCentro._id, // 🏢 Referencia sede
+    cupo_maximo: 8, // 🔢 Capacidad
+    costo: 700, // 💰 Precio
+    fecha_inicio: new Date("2024-08-15"), // 🗓️ Inicio reciente
+    fecha_fin: new Date("2024-11-30"), // 🗓️ Fin reciente
+    nivel: "intermedio" // 📊 Nivel
+  },
+  { 
+    nombre: "Guitarra Principiante", // 🏷️ Nombre curso
+    descripcion: "Aprende guitarra desde cero.", // 📝 Descripción
+    profesor_id: profesorAna._id, // 👩‍🏫 Referencia profesor
+    sede_id: sedeSur._id, // 🏢 Referencia sede
+    cupo_maximo: 12, // 🔢 Capacidad
+    costo: 450, // 💰 Precio
+    fecha_inicio: new Date("2024-10-01"), // 🗓️ Inicio reciente
+    fecha_fin: new Date("2025-01-31"), // 🗓️ Fin reciente
+    nivel: "básico" // 📊 Nivel
+  }
 ])
 
-/// INSCRIPCIONES 📝
-const estudiante = db.estudiantes.findOne({ cedula: "1122334455" }); // 🔍 Buscamos a Daniela Suárez
-const curso = db.cursos.findOne({ nombre: "Violín Básico" }); // 🔍 Encontramos el curso de violín
+/// INSCRIPCIONES 📝🎺
+const estudianteDaniela = db.estudiantes.findOne({ cedula: "1122334455" }) // 🔍 Daniela
+const estudianteAndres = db.estudiantes.findOne({ cedula: "1122334466" }) // 🔍 Andrés
+const estudianteMaria = db.estudiantes.findOne({ cedula: "1122334477" }) // 🔍 María
+const cursoViolin = db.cursos.findOne({ nombre: "Violín Básico" }) // 🔍 Curso violín
+const cursoBateria = db.cursos.findOne({ nombre: "Batería Intermedio" }) // 🔍 Curso batería
+const cursoGuitarra = db.cursos.findOne({ nombre: "Guitarra Principiante" }) // 🔍 Curso guitarra
 
-db.inscripciones.insertMany([
-{
-  estudiante_id: estudiante._id, // 🔗 El ID de Daniela
-  curso_id: curso._id, // 🔗 El ID del curso de violín
-  fecha_inscripcion: new Date("2025-01-10"),
-  estado: "activa" // 👍 Está inscrita y lista para aprender
-}
+db.inscripciones.insertMany([ // 📥 Insertamos inscripciones RECIENTES
+  {
+    estudiante_id: estudianteDaniela._id, // 🎓 Daniela
+    curso_id: cursoViolin._id, // 🎻 Violín
+    fecha_inscripcion: new Date("2024-08-20"), // 📅 Fecha reciente
+    estado: "activa" // ✅ Activa
+  },
+  {
+    estudiante_id: estudianteAndres._id, // 🎓 Andrés
+    curso_id: cursoBateria._id, // 🥁 Batería
+    fecha_inscripcion: new Date("2024-08-18"), // 📅 Fecha reciente
+    estado: "activa" // ✅ Activa
+  },
+  {
+    estudiante_id: estudianteMaria._id, // 🎓 María
+    curso_id: cursoGuitarra._id, // 🎸 Guitarra
+    fecha_inscripcion: new Date("2024-08-22"), // 📅 Fecha reciente
+    estado: "activa" // ✅ Activa
+  },
+  {
+    estudiante_id: estudianteDaniela._id, // 🎓 Daniela
+    curso_id: cursoGuitarra._id, // 🎸 Guitarra
+    fecha_inscripcion: new Date("2024-08-25"), // 📅 Fecha reciente
+    estado: "activa" // ✅ Activa
+  }
 ])
 
 /// INSTRUMENTOS 🎹🥁
-const sedeCentro = db.sedes.findOne({ nombre: "Campus Centro" }); // 🔍 Sede para los instrumentos
-
-db.instrumentos.insertMany([
-{
-  nombre: "Piano Yamaha",
-  tipo: "teclado",
-  estado: "disponible", // ✅ ¡Listo para ser usado!
-  sede_id: sedeCentro._id // 🔗 Se encuentra en el Campus Centro
-},
-{
-  nombre: "Violín Stradivarius",
-  tipo: "cuerda",
-  estado: "mantenimiento", // 🚧 No se puede usar por ahora
-  sede_id: sedeCentro._id // 🔗 Se encuentra en el Campus Centro
-}
+db.instrumentos.insertMany([ // 📥 Insertamos instrumentos
+  {
+    nombre: "Piano Yamaha", // 🏷️ Nombre instrumento
+    tipo: "teclado", // 🎹 Tipo
+    estado: "disponible", // ✅ Disponible
+    sede_id: sedeCentro._id // 🏢 Sede Centro
+  },
+  {
+    nombre: "Violín Stradivarius", // 🏷️ Nombre instrumento
+    tipo: "cuerda", // 🎻 Tipo
+    estado: "mantenimiento", // 🔧 En mantenimiento
+    sede_id: sedeCentro._id // 🏢 Sede Centro
+  },
+  {
+    nombre: "Guitarra Acústica", // 🏷️ Nombre instrumento
+    tipo: "cuerda", // 🎸 Tipo
+    estado: "disponible", // ✅ Disponible
+    sede_id: sedeSur._id // 🏢 Sede Sur
+  },
+  {
+    nombre: "Batería Pearl", // 🏷️ Nombre instrumento
+    tipo: "percusión", // 🥁 Tipo
+    estado: "disponible", // ✅ Disponible
+    sede_id: sedeNorte._id // 🏢 Sede Norte
+  }
 ])
 
-/// RESERVAS DE INSTRUMENTOS 📅
-const usuario = db.usuarios.findOne({ cedula: "1234567892" }); // 🔍 Miguel (el estudiante)
-const instrumento = db.instrumentos.findOne({ nombre: "Piano Yamaha" }); // 🔍 El piano disponible
+/// RESERVAS DE INSTRUMENTOS 📅🎹
+const usuarioMiguel = db.usuarios.findOne({ cedula: "1234567892" }) // 🔍 Usuario Miguel
+const instrumentoPiano = db.instrumentos.findOne({ nombre: "Piano Yamaha" }) // 🔍 Piano
+const instrumentoGuitarra = db.instrumentos.findOne({ nombre: "Guitarra Acústica" }) // 🔍 Guitarra
 
-db.reservas_instrumentos.insertMany([
-{
-  instrumento_id: instrumento._id, // 🔗 El piano
-  usuario_id: usuario._id, // 🔗 El estudiante Miguel
-  fecha_reserva: new Date("2025-08-20"),
-  fecha_devolucion: new Date("2025-08-25"),
-  estado: "activa" // ⏳ La reserva está en curso
-}
+db.reservas_instrumentos.insertMany([ // 📥 Insertamos reservas RECIENTES
+  {
+    instrumento_id: instrumentoPiano._id, // 🎹 Instrumento
+    usuario_id: usuarioMiguel._id, // 👤 Usuario
+    fecha_reserva: new Date("2024-08-20"), // 📅 Reserva reciente
+    fecha_devolucion: new Date("2024-08-25"), // 📅 Devolución
+    estado: "activa" // ⏳ Activa
+  },
+  {
+    instrumento_id: instrumentoGuitarra._id, // 🎸 Instrumento
+    usuario_id: usuarioMiguel._id, // 👤 Usuario
+    fecha_reserva: new Date("2024-08-22"), // 📅 Reserva reciente
+    fecha_devolucion: new Date("2024-08-27"), // 📅 Devolución
+    estado: "activa" // ⏳ Activa
+  }
 ])
+
+print("✅🎊 ¡Datos de prueba insertados exitosamente!") // 🎉 Mensaje de éxito
+print("📊 Total estudiantes: " + db.estudiantes.countDocuments()) // 📈 Conteo
+print("📚 Total cursos: " + db.cursos.countDocuments()) // 📈 Conteo
+print("📝 Total inscripciones: " + db.inscripciones.countDocuments()) // 📈 Conteo

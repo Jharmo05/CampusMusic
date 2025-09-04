@@ -1,165 +1,198 @@
-use campusMusic // 🎶 Conectamos a la base de datos de nuestra academia de música
+use campusMusic // 🎵🎻 ¡Activamos la base de datos musical!
 
 // ==========================
-// 1. USUARIOS 👤
+// 1. COLECCIÓN USUARIOS 👥🎭
 // ==========================
-db.createCollection("usuarios", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "apellido", "email", "rol", "cedula"], // ❗ Campos obligatorios para cada usuario
-      properties: {
-        nombre: { bsonType: "string" },
-        apellido: { bsonType: "string" },
-        email: { bsonType: "string", pattern: "^.+@.+\\..+$" }, // 📧 Validamos que el email tenga un formato correcto
-        rol: { enum: ["administrador", "empleado", "estudiante"] }, // 🎭 Rol del usuario, ¡solo estos son válidos!
-        cedula: { bsonType: "string" },
-        telefono: { bsonType: "string" },
-        fecha_registro: { bsonType: "date" }
+db.createCollection("usuarios", { // 📦 Creamos la colección de usuarios
+  validator: { // 🛡️ Validador de datos para mantener la calidad
+    $jsonSchema: { // 📜 Esquema JSON para validación
+      bsonType: "object", // 🎯 Cada documento debe ser un objeto
+      required: ["nombre", "apellido", "email", "rol", "cedula"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas con restricciones
+        nombre: { bsonType: "string" }, // 🏷️ Nombre debe ser texto
+        apellido: { bsonType: "string" }, // 🏷️ Apellido debe ser texto
+        email: { 
+          bsonType: "string", 
+          pattern: "^.+@.+\\..+$" // 📧 Formato de email válido
+        },
+        rol: { 
+          enum: ["administrador", "empleado", "estudiante"] // 🎭 Solo roles permitidos
+        },
+        cedula: { bsonType: "string" }, // 🆔 Cédula como texto
+        telefono: { bsonType: "string" }, // 📞 Teléfono opcional
+        fecha_registro: { bsonType: "date" } // 📅 Fecha de registro opcional
       }
     }
   }
 })
-db.usuarios.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Aseguramos que la cédula sea única
-db.usuarios.createIndex({ email: 1 }, { unique: true }) // 🔑 También el email para evitar duplicados
+db.usuarios.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Índice único para cédula
+db.usuarios.createIndex({ email: 1 }, { unique: true }) // 🔑 Índice único para email
 
 // ==========================
-// 2. PROFESORES 👨‍🏫
+// 2. COLECCIÓN PROFESORES 👨‍🏫🎼
 // ==========================
-db.createCollection("profesores", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "apellido", "especialidad", "cedula"], // ❗ Info esencial para el profesor
-      properties: {
-        nombre: { bsonType: "string" },
-        apellido: { bsonType: "string" },
-        cedula: { bsonType: "string" },
-        especialidad: { bsonType: "string" }, // 🎻 La especialidad musical del profesor
-        telefono: { bsonType: "string" },
-        email: { bsonType: "string", pattern: "^.+@.+\\..+$" },
-        fecha_ingreso: { bsonType: "date" } // 🗓️ Cuando se unió a la orquesta de profesores
+db.createCollection("profesores", { // 📦 Colección de maestros musicales
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["nombre", "apellido", "especialidad", "cedula"], // 🚨 Campos requeridos
+      properties: { // 📋 Propiedades con validaciones
+        nombre: { bsonType: "string" }, // 🏷️ Nombre del profesor
+        apellido: { bsonType: "string" }, // 🏷️ Apellido del profesor
+        cedula: { bsonType: "string" }, // 🆔 Cédula única
+        especialidad: { bsonType: "string" }, // 🎻 Especialidad musical
+        telefono: { bsonType: "string" }, // 📞 Teléfono opcional
+        email: { 
+          bsonType: "string", 
+          pattern: "^.+@.+\\..+$" // 📧 Email con formato válido
+        },
+        fecha_ingreso: { bsonType: "date" } // 🗓️ Fecha de ingreso opcional
       }
     }
   }
 })
-db.profesores.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Cédula de profesor, ¡única e irrepetible!
+db.profesores.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Índice único por cédula
 
 // ==========================
-// 3. ESTUDIANTES 🎓
+// 3. COLECCIÓN ESTUDIANTES 🎓🎸
 // ==========================
-db.createCollection("estudiantes", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "apellido", "cedula"], // ❗ Campos principales para el estudiante
-      properties: {
-        nombre: { bsonType: "string" },
-        apellido: { bsonType: "string" },
-        cedula: { bsonType: "string" },
-        email: { bsonType: "string", pattern: "^.+@.+\\..+$" },
-        telefono: { bsonType: "string" },
-        direccion: { bsonType: "string" },
-        fecha_nacimiento: { bsonType: "date" } // 🎂 Fecha de nacimiento
+db.createCollection("estudiantes", { // 📦 Colección de estudiantes
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["nombre", "apellido", "cedula"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas
+        nombre: { bsonType: "string" }, // 🏷️ Nombre del estudiante
+        apellido: { bsonType: "string" }, // 🏷️ Apellido del estudiante
+        cedula: { bsonType: "string" }, // 🆔 Cédula única
+        email: { 
+          bsonType: "string", 
+          pattern: "^.+@.+\\..+$" // 📧 Email opcional con formato
+        },
+        telefono: { bsonType: "string" }, // 📞 Teléfono opcional
+        direccion: { bsonType: "string" }, // 🏠 Dirección opcional
+        fecha_nacimiento: { bsonType: "date" } // 🎂 Fecha nacimiento opcional
       }
     }
   }
 })
-db.estudiantes.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Cédula única para identificar a cada estudiante
+db.estudiantes.createIndex({ cedula: 1 }, { unique: true }) // 🔑 Índice único por cédula
 
 // ==========================
-// 4. SEDES 🏢
+// 4. COLECCIÓN SEDES 🏢🎹
 // ==========================
-db.createCollection("sedes", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "direccion", "zona"], // ❗ Los datos básicos de cada campus
-      properties: {
-        nombre: { bsonType: "string" },
-        direccion: { bsonType: "string" },
-        zona: { enum: ["norte", "sur", "este", "oeste", "centro"] }, // 🗺️ Zonas geográficas
-        telefono: { bsonType: "string" }
+db.createCollection("sedes", { // 📦 Colección de sedes/campus
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["nombre", "direccion", "zona"], // 🚨 Campos requeridos
+      properties: { // 📋 Propiedades permitidas
+        nombre: { bsonType: "string" }, // 🏷️ Nombre de la sede
+        direccion: { bsonType: "string" }, // 📍 Dirección física
+        zona: { 
+          enum: ["norte", "sur", "este", "oeste", "centro"] // 🗺️ Zona permitida
+        },
+        telefono: { bsonType: "string" } // 📞 Teléfono opcional
       }
     }
   }
 })
-db.sedes.createIndex({ zona: 1 }) // ⚡ Índice para búsquedas rápidas por zona
+db.sedes.createIndex({ zona: 1 }) // ⚡ Índice por zona para búsquedas rápidas
 
 // ==========================
-// 5. CURSOS 📚
+// 5. COLECCIÓN CURSOS 📚🎷
 // ==========================
-db.createCollection("cursos", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "profesor_id", "sede_id"], // ❗ Lo mínimo para un curso
-      properties: {
-        nombre: { bsonType: "string" },
-        descripcion: { bsonType: "string" },
-        profesor_id: { bsonType: "objectId" }, // 🔗 Referencia al profesor que imparte el curso
-        sede_id: { bsonType: "objectId" }, // 🔗 Referencia a la sede donde se da el curso
-        cupo_maximo: { bsonType: "int", minimum: 1 } // 🔢 El límite de estudiantes
+db.createCollection("cursos", { // 📦 Colección de cursos musicales
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["nombre", "profesor_id", "sede_id"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas
+        nombre: { bsonType: "string" }, // 🏷️ Nombre del curso
+        descripcion: { bsonType: "string" }, // 📝 Descripción opcional
+        profesor_id: { bsonType: "objectId" }, // 👨‍🏫 Referencia a profesor
+        sede_id: { bsonType: "objectId" }, // 🏢 Referencia a sede
+        cupo_maximo: { 
+          bsonType: "int", 
+          minimum: 1 // 🔢 Mínimo 1 cupo
+        },
+        costo: { 
+          bsonType: "int", 
+          minimum: 0 // 💰 Costo no negativo
+        },
+        fecha_inicio: { bsonType: "date" }, // 🗓️ Fecha inicio opcional
+        fecha_fin: { bsonType: "date" }, // 🗓️ Fecha fin opcional
+        nivel: { bsonType: "string" } // 📊 Nivel opcional
       }
     }
   }
 })
-db.cursos.createIndex({ nombre: 1, sede_id: 1 }, { unique: true }) // 🔑 Un curso con el mismo nombre en la misma sede es único
+db.cursos.createIndex({ nombre: 1, sede_id: 1 }, { unique: true }) // 🔑 Evita cursos duplicados por sede
 
 // ==========================
-// 6. INSCRIPCIONES ✍️
+// 6. COLECCIÓN INSCRIPCIONES ✍️🎺
 // ==========================
-db.createCollection("inscripciones", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["estudiante_id", "curso_id", "fecha_inscripcion"], // ❗ Datos clave de la inscripción
-      properties: {
-        estudiante_id: { bsonType: "objectId" }, // 🔗 El estudiante que se inscribe
-        curso_id: { bsonType: "objectId" }, // 🔗 El curso al que se inscribe
-        fecha_inscripcion: { bsonType: "date" },
-        estado: { enum: ["activa", "finalizada", "cancelada"] } // 🚦 Estado de la inscripción
+db.createCollection("inscripciones", { // 📦 Colección de inscripciones
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["estudiante_id", "curso_id", "fecha_inscripcion"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas
+        estudiante_id: { bsonType: "objectId" }, // 🎓 Referencia a estudiante
+        curso_id: { bsonType: "objectId" }, // 📚 Referencia a curso
+        fecha_inscripcion: { bsonType: "date" }, // 📅 Fecha de inscripción
+        estado: { 
+          enum: ["activa", "finalizada", "cancelada"] // 🚦 Estados permitidos
+        }
       }
     }
   }
 })
-db.inscripciones.createIndex({ estudiante_id: 1, curso_id: 1 }, { unique: true }) // 🔑 Un estudiante solo puede inscribirse una vez en un curso
+db.inscripciones.createIndex({ estudiante_id: 1, curso_id: 1 }, { unique: true }) // 🔑 Evita inscripciones duplicadas
 
 // ==========================
-// 7. INSTRUMENTOS 🎸
+// 7. COLECCIÓN INSTRUMENTOS 🎸🥁
 // ==========================
-db.createCollection("instrumentos", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["nombre", "tipo", "estado"], // ❗ Lo que necesitamos saber de un instrumento
-      properties: {
-        nombre: { bsonType: "string" },
-        tipo: { enum: ["cuerda", "viento", "percusión", "teclado", "otro"] }, // 🎶 Tipo de instrumento
-        estado: { enum: ["disponible", "reservado", "mantenimiento"] }, // 🛠️ Estado actual
-        sede_id: { bsonType: "objectId" } // 🔗 Dónde se encuentra el instrumento
+db.createCollection("instrumentos", { // 📦 Colección de instrumentos musicales
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["nombre", "tipo", "estado"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas
+        nombre: { bsonType: "string" }, // 🏷️ Nombre del instrumento
+        tipo: { 
+          enum: ["cuerda", "viento", "percusión", "teclado", "otro"] // 🎶 Tipos permitidos
+        },
+        estado: { 
+          enum: ["disponible", "reservado", "mantenimiento"] // 🔧 Estados permitidos
+        },
+        sede_id: { bsonType: "objectId" } // 🏢 Referencia a sede opcional
       }
     }
   }
 })
-db.instrumentos.createIndex({ nombre: 1, sede_id: 1 }) // ⚡ Índice para encontrar instrumentos por nombre y sede
+db.instrumentos.createIndex({ nombre: 1, sede_id: 1 }) // ⚡ Índice para búsquedas rápidas
 
 // ==========================
-// 8. RESERVAS DE INSTRUMENTOS 🗓️
+// 8. COLECCIÓN RESERVAS 📅🎹
 // ==========================
-db.createCollection("reservas_instrumentos", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["instrumento_id", "usuario_id", "fecha_reserva"], // ❗ Los datos de la reserva
-      properties: {
-        instrumento_id: { bsonType: "objectId" }, // 🔗 El instrumento reservado
-        usuario_id: { bsonType: "objectId" }, // 🔗 El usuario que lo reserva
-        fecha_reserva: { bsonType: "date" }, // 🗓️ Día de la reserva
-        fecha_devolucion: { bsonType: "date" }, // 🗓️ Día de la devolución
-        estado: { enum: ["activa", "finalizada", "cancelada"] } // 🚦 Estado de la reserva
+db.createCollection("reservas_instrumentos", { // 📦 Colección de reservas
+  validator: { // 🛡️ Validador de datos
+    $jsonSchema: { // 📜 Esquema de validación
+      bsonType: "object", // 🎯 Documentos tipo objeto
+      required: ["instrumento_id", "usuario_id", "fecha_reserva"], // 🚨 Campos obligatorios
+      properties: { // 📋 Propiedades permitidas
+        instrumento_id: { bsonType: "objectId" }, // 🎹 Referencia a instrumento
+        usuario_id: { bsonType: "objectId" }, // 👤 Referencia a usuario
+        fecha_reserva: { bsonType: "date" }, // 📅 Fecha de reserva
+        fecha_devolucion: { bsonType: "date" }, // 📅 Fecha devolución opcional
+        estado: { 
+          enum: ["activa", "finalizada", "cancelada"] // 🚦 Estados permitidos
+        }
       }
     }
   }
 })
-db.reservas_instrumentos.createIndex({ instrumento_id: 1, usuario_id: 1 }) // ⚡ Índice para ver reservas de un instrumento por usuario
+db.reservas_instrumentos.createIndex({ instrumento_id: 1, usuario_id: 1 }) // ⚡ Índice para consultas comunes
+
+print("✅🎉 ¡Todas las colecciones fueron configuradas exitosamente!") // 🎊 Mensaje de éxito
